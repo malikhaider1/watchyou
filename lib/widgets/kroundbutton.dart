@@ -7,7 +7,7 @@ class KElevatedButton extends StatelessWidget {
     required this.color,
     required this.opacity,
     required this.size,
-    required this.ontap,
+    required this.onTap,
     this.maximumSize,
     this.minimumSize,
     required this.borderRadius,
@@ -18,7 +18,7 @@ class KElevatedButton extends StatelessWidget {
   final Color color;
   final double opacity;
   final double size;
-  final VoidCallback ontap;
+  final VoidCallback onTap;
   final Size? maximumSize;
   final Size? minimumSize;
   final double borderRadius;
@@ -38,7 +38,7 @@ class KElevatedButton extends StatelessWidget {
           backgroundColor: color,
           maximumSize: maximumSize,
           minimumSize: minimumSize),
-      onPressed: ontap,
+      onPressed: onTap,
       child: Text(
         title,
         style: TextStyle(

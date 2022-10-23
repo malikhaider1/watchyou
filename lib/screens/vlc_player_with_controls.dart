@@ -1,5 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, camel_case_types, prefer_const_constructors_in_immutables, unnecessary_null_comparison, prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously, unused_element, unused_field
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';

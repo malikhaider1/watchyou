@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: primaryColor,
                         opacity: 0,
                         size: 17,
-                        ontap: () {
+                        onTap: () {
                           setState(() {
                             if (formKey.currentState!.validate()) {
                               loginUser();
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: primaryColor,
                         opacity: 0,
                         size: 17,
-                        ontap: () {
+                        onTap: () {
                           signInWithGoogle();
                           navigatorKey.currentState!
                               .popUntil((route) => route.isFirst);

@@ -1,11 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchyou/assets/firebaseManagement.dart';
-import 'package:watchyou/collectionwithview/actionmovies.dart';
-import 'package:watchyou/firebaseCrud/firebaseCreateReadUpdateDelete.dart';
-import 'package:watchyou/firebaseCrud/firebaseJasonData.dart';
 import 'package:watchyou/widgets/fieldwidget.dart';
 import 'package:watchyou/widgets/kroundbutton.dart';
 
+import '../firebaseCrud/firebaseCreateReadUpdateDelete.dart';
+import '../firebaseCrud/firebaseJasonData.dart';
 import '../widgets/collectionNamesAdminPanel.dart';
 import '../widgets/kdrawer.dart';
 import 'LoginPage.dart';
@@ -154,7 +153,7 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                       color: Colors.blueGrey,
                       opacity: 0,
                       size: 17,
-                      ontap: () async {
+                      onTap: () async {
                         await FirebaseCreateReadUpdateDelete.create(
                             FirebaseJasonData(
                               maturity: maturityController.text,
