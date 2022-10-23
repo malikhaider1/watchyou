@@ -136,7 +136,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                 color: Colors.blueGrey,
                 opacity: 0,
                 size: 17,
-                ontap: () async {
+                onTap: () async {
                   await FirebaseCreateReadUpdateDelete.update(
                           FirebaseJasonData(
                             id: widget.jasonData.id,

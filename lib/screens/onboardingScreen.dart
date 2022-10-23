@@ -133,7 +133,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   KElevatedButton(
-                    ontap: () {
+                    onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -150,7 +150,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     maximumSize: Size(sizeHeight / (6.5), sizeWidth / (5.8)),
                   ),
                   KElevatedButton(
-                    ontap: () {
+                    onTap: () {
                       setState(() {
                         Navigator.push(
                             context,

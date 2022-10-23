@@ -1,9 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:watchyou/assets/signinwithemail.dart';
 import 'package:watchyou/assets/authwithgoogle.dart';
+import 'package:watchyou/assets/signinwithemail.dart';
 import 'package:watchyou/widgets/kroundbutton.dart';
+
 import '../main.dart';
 import '../widgets/fieldwidget.dart';
 import '../widgets/topbar.dart';
@@ -121,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: primaryColor,
                       opacity: 0,
                       size: 17,
-                      ontap: () {
+                      onTap: () {
                         if (formKey.currentState!.validate()) {
                           return signUpUser();
                         }
@@ -143,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: primaryColor,
                       opacity: 0,
                       size: 17,
-                      ontap: () {
+                      onTap: () {
                         signInWithGoogle();
                         navigatorKey.currentState!
                             .popUntil((route) => route.isFirst);
