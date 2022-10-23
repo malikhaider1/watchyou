@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "390163799364",
+    "project_id": "watchyou-846e6",
+    "storage_bucket": "watchyou-846e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390163799364:android:dde1cf1e01b4d5ee2ecb11",
+        "android_client_info": {
+          "package_name": "com.example.WatchYou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390163799364-1dq6vrqqlhcordreptkq6prg6rgt05fi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRAfI7M7dXpuxPvMoGU_1cLERNYjzsfn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390163799364-1dq6vrqqlhcordreptkq6prg6rgt05fi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
