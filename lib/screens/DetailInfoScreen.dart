@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:watchyou/screens/single_tab.dart';
-import '../assets/authwithgoogle.dart';
-import '../firebaseCrud/firebaseJasonData.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../assets/authwithgoogle.dart';
+import '../firebaseCrud/firebaseJasonData.dart';
 import '../widgets/gridView.dart';
 
 class DetailInfoScreen extends StatefulWidget {
@@ -54,7 +53,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
           color: Colors.blueGrey,
         ),
         backgroundColor: Colors.transparent,
-        title: FirebaseAuth.instance.currentUser!.displayName != null
+        title: FirebaseAuth.instance.currentUser?.displayName != null
             ? Text(
                 "${FirebaseAuth.instance.currentUser!.displayName}",
                 style: const TextStyle(
