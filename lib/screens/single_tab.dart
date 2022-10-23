@@ -54,12 +54,12 @@ class _SingleTabState extends State<SingleTab> {
               VlcAdvancedOptions.networkCaching(2000),
             ]),
             subtitle: VlcSubtitleOptions([
-              VlcSubtitleOptions.boldStyle(true),
+              VlcSubtitleOptions.boldStyle(false),
               VlcSubtitleOptions.fontSize(30),
-              VlcSubtitleOptions.outlineColor(VlcSubtitleColor.yellow),
-              VlcSubtitleOptions.outlineThickness(VlcSubtitleThickness.normal),
+              // VlcSubtitleOptions.outlineColor(VlcSubtitleColor.white),
+              // VlcSubtitleOptions.outlineThickness(VlcSubtitleThickness.thin),
               // works only on externally added subtitles
-              VlcSubtitleOptions.color(VlcSubtitleColor.navy),
+              VlcSubtitleOptions.color(VlcSubtitleColor.white),
             ]),
             http: VlcHttpOptions([
               VlcHttpOptions.httpReconnect(true),
