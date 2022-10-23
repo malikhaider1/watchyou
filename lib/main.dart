@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/loginScreen': (context) => const LoginScreen(),
           '/onBoardingScreen': (context) => const OnBoardingScreen(),
-          '/HomeScreeeen': (context) => const HomeScreen(),
+          '/HomeScreen': (context) => const HomeScreen(),
           '/AdminHomeScreen': (context) => const AdminControlHomeScreen(),
         });
   }
