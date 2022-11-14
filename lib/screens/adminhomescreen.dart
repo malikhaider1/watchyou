@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchyou/widgets/fieldwidget.dart';
 import 'package:watchyou/widgets/kroundbutton.dart';
@@ -44,13 +43,17 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
     movieUrlLinkController.dispose();
   }
 
+  final adminFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: adminFormKey,
       child: Scaffold(
         drawer: const KDrawer(),
         appBar: AppBar(
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.person))
+          ],
           elevation: 0,
           backgroundColor: primaryColor,
           centerTitle: true,
@@ -72,10 +75,17 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                     ),
                   ),
                 ),
-                const collectionNames(),
+                const CollectionNames(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: collectionNameController,
                       hintText: 'CollectionName',
                       labelText: 'CollectionName'),
@@ -83,6 +93,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: movieNameController,
                       hintText: 'MovieName',
                       labelText: 'MovieName'),
@@ -90,6 +107,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: imdbRatingController,
                       hintText: '0.0',
                       labelText: 'Imdb Rating'),
@@ -97,6 +121,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: descriptionController,
                       hintText: 'description',
                       labelText: 'description',
@@ -105,6 +136,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: maturityController,
                       hintText: 'Maturity',
                       labelText: 'Maturity'),
@@ -112,6 +150,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: durationController,
                       hintText: 'Duration',
                       labelText: 'Duration'),
@@ -119,6 +164,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: genreController,
                       hintText: 'Genre',
                       labelText: 'Genre'),
@@ -126,6 +178,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: videoUrlController,
                       hintText: ' Trailer Video Url',
                       labelText: 'Trailer Video Url'),
@@ -133,6 +192,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: imageUrlController,
                       hintText: 'Image Url',
                       labelText: 'Image Url'),
@@ -140,6 +206,13 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Required";
+                        }
+                        return null;
+                      },
                       controller: movieUrlLinkController,
                       hintText: 'movie',
                       labelText: 'Movie Link Url'),
@@ -154,20 +227,22 @@ class _AdminControlHomeScreenState extends State<AdminControlHomeScreen> {
                       opacity: 0,
                       size: 17,
                       onTap: () async {
-                        await FirebaseCreateReadUpdateDelete.create(
-                            FirebaseJasonData(
-                              maturity: maturityController.text,
-                              duration: durationController.text,
-                              description: descriptionController.text,
-                              genre: genreController.text,
-                              videoUrl: videoUrlController.text,
-                              imageUrl: imageUrlController.text,
-                              movieName: movieNameController.text,
-                              imdbRating: imdbRatingController.text,
-                              movieUrl: movieUrlLinkController.text,
-                            ),
-                            context,
-                            collectionNameController.text);
+                        if (adminFormKey.currentState!.validate()) {
+                          return await FirebaseCreateReadUpdateDelete.create(
+                              FirebaseJasonData(
+                                maturity: maturityController.text,
+                                duration: durationController.text,
+                                description: descriptionController.text,
+                                genre: genreController.text,
+                                videoUrl: videoUrlController.text,
+                                imageUrl: imageUrlController.text,
+                                movieName: movieNameController.text,
+                                imdbRating: imdbRatingController.text,
+                                movieUrl: movieUrlLinkController.text,
+                              ),
+                              context,
+                              collectionNameController.text);
+                        }
                       },
                       borderRadius: 50,
                       textColor: Colors.white.withOpacity(0.8)),

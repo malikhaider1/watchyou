@@ -203,7 +203,24 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
               Column(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      // if () {
+                      //   return await FirebaseCreateReadUpdateDelete.create(
+                      //       FirebaseJasonData(
+                      //         maturity: ,
+                      //         duration: ,
+                      //         description: ,
+                      //         genre: ,
+                      //         videoUrl:,
+                      //         imageUrl: ,
+                      //         movieName: ,
+                      //         imdbRating:,
+                      //         movieUrl: ,
+                      //       ),
+                      //       context,
+                      //       "addtodiary");
+                      // }
+                    },
                     icon: const Icon(CupertinoIcons.add),
                     color: Colors.white,
                   ),

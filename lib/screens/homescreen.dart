@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:watchyou/firebaseCrud/firebaseCreateReadUpdateDelete.dart';
 import 'package:watchyou/firebaseCrud/firebaseJasonData.dart';
 import 'package:watchyou/screens/DetailInfoScreen.dart';
+
 import '../widgets/kAppBar.dart';
 import '../widgets/showsnackbar.dart';
+import 'GridViewMovies.dart';
 import 'LoginPage.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -107,10 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             initialPage: currentIndex,
                             autoPlayCurve: Curves.easeInSine,
-                            autoPlay: false,
+                            autoPlay: true,
                             enableInfiniteScroll: true,
                             viewportFraction: 0.4,
                             height: 240,
+                            enlargeCenterPage: true,
                           )),
                       const SizedBox(
                         height: 20,
@@ -152,7 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 15.0, horizontal: 10),
                     child: Row(
-                      children: const [
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
                         Text(
                           'Action Movie',
                           style: TextStyle(
@@ -160,10 +165,40 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 20,
                               fontWeight: FontWeight.w500),
                         ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  (context),
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          const GridViewMoreMovies(
+                                            collectionName: 'action',
+                                          )));
+                            },
+                            icon: Icon(
+                              Icons.read_more_outlined,
+                              color: Colors.grey,
+                            ))
                       ],
                     ),
                   ),
                   const KCarouselSlider(collectionName: 'action'),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(
+                  //       vertical: 15.0, horizontal: 10),
+                  //   child: Row(
+                  //     children: const [
+                  //       Text(
+                  //         'Horror',
+                  //         style: TextStyle(
+                  //             color: Colors.grey,
+                  //             fontSize: 20,
+                  //             fontWeight: FontWeight.w500),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const KCarouselSlider(collectionName: 'horror'),
                 ],
               );
             }
@@ -203,7 +238,7 @@ class KCarouselSlider extends StatelessWidget {
                   enableInfiniteScroll: true,
                   reverse: false,
                   height: 177,
-                  viewportFraction: 0.36),
+                  viewportFraction: 0.32),
               itemCount: userData!.length,
               itemBuilder: (BuildContext context, int index, int realIndex) {
                 final dataAccessor = userData[index];

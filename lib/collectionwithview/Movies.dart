@@ -5,14 +5,33 @@ import '../firebaseCrud/firebaseCreateReadUpdateDelete.dart';
 import '../firebaseCrud/firebaseJasonData.dart';
 import '../widgets/showsnackbar.dart';
 
-class ActionMovies extends StatefulWidget {
-  const ActionMovies({Key? key}) : super(key: key);
-
+class Movies extends StatefulWidget {
+  const Movies({Key? key, required this.movieType, required this.title})
+      : super(key: key);
+  final String? movieType;
+  final String title;
   @override
-  State<ActionMovies> createState() => _ActionMoviesState();
+  State<Movies> createState() => _MoviesState();
 }
 
-class _ActionMoviesState extends State<ActionMovies> {
+class _MoviesState extends State<Movies> {
+  @override
+  Widget build(BuildContext context) {
+    return MoviesDisplayAdmin(
+      title: widget.title,
+      movieType: "${widget.movieType}",
+    );
+  }
+}
+
+class MoviesDisplayAdmin extends StatelessWidget {
+  const MoviesDisplayAdmin({
+    Key? key,
+    required this.movieType,
+    required this.title,
+  }) : super(key: key);
+  final String movieType;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +39,10 @@ class _ActionMoviesState extends State<ActionMovies> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
-        title: const Text('ActionMovies'),
+        title: Text(title),
       ),
       body: StreamBuilder<List<FirebaseJasonData>>(
-          stream: FirebaseCreateReadUpdateDelete.read('action'),
+          stream: FirebaseCreateReadUpdateDelete.read(movieType),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -85,8 +104,11 @@ class _ActionMoviesState extends State<ActionMovies> {
                               ),
                               Column(
                                 children: [
-                                  Text("${singleActionMovieData.movieName}"),
-                                  Text("${singleActionMovieData.genre}"),
+                                  Text(
+                                      "${singleActionMovieData.movieName?.substring(0, 5)} .."),
+                                  Text(
+                                    "${singleActionMovieData.genre?.substring(0, 15)} ..",
+                                  ),
                                   Text("${singleActionMovieData.duration}"),
                                   Text("${singleActionMovieData.maturity}"),
                                 ],

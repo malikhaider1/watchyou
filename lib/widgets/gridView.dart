@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:watchyou/widgets/showsnackbar.dart';
 
@@ -56,8 +55,8 @@ class _KGridViewState extends State<KGridView> {
                           },
                           child: Center(
                             child: Container(
-                              height: 140,
-                              width: 104,
+                              height: 150,
+                              width: 110,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(

@@ -61,6 +61,12 @@ class _UpdateInformationState extends State<UpdateInformation> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        centerTitle: true,
+        title: Text("Update"),
+      ),
+      backgroundColor: Colors.black,
       body: ListView(
         children: [
           Padding(

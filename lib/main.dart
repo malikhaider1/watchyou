@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
                 }
               }),
         ),
-        // initialRoute: '/HomeScreen',
+        // initialRoute: '/AdminHomeScreen',
         routes: {
           '/loginScreen': (context) => const LoginScreen(),
           '/onBoardingScreen': (context) => const OnBoardingScreen(),
