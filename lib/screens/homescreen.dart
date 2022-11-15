@@ -33,20 +33,23 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.blueGrey.withOpacity(0.4),
-          selectedItemColor: Colors.blueGrey,
+          // backgroundColor: Colors.blueGrey.withOpacity(0.4),
+          backgroundColor: Colors.transparent,
+          selectedItemColor: Colors.red,
           unselectedItemColor: Colors.white54,
           currentIndex: selectedIndex,
           onTap: _onItemTapped,
           items: const [
             BottomNavigationBarItem(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.transparent,
                 icon: Icon(
                   Icons.home,
                 ),
                 label: "Home"),
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.heart_fill), label: "Diary"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.upcoming), label: "Upcoming"),
           ]),
       appBar: kAppBar(context),
       backgroundColor: Colors.black,
@@ -55,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
               );
             }
             if (snapshot.hasError) {
@@ -151,54 +156,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15.0, horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Action Movie',
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  (context),
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          const GridViewMoreMovies(
-                                            collectionName: 'action',
-                                          )));
-                            },
-                            icon: Icon(
-                              Icons.read_more_outlined,
-                              color: Colors.grey,
-                            ))
-                      ],
-                    ),
+                  const HomeMoviesSection(
+                    collectionName: 'action',
+                    titleName: 'Action',
                   ),
                   const KCarouselSlider(collectionName: 'action'),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(
-                  //       vertical: 15.0, horizontal: 10),
-                  //   child: Row(
-                  //     children: const [
-                  //       Text(
-                  //         'Horror',
-                  //         style: TextStyle(
-                  //             color: Colors.grey,
-                  //             fontSize: 20,
-                  //             fontWeight: FontWeight.w500),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const KCarouselSlider(collectionName: 'horror'),
+                  const HomeMoviesSection(
+                      titleName: 'Horror', collectionName: 'horror'),
+                  const KCarouselSlider(collectionName: 'horror'),
+                  const HomeMoviesSection(
+                      titleName: 'Comedies', collectionName: 'comedies'),
+                  const KCarouselSlider(collectionName: 'comedies'),
                 ],
               );
             }
@@ -208,6 +176,51 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }),
+    );
+  }
+}
+
+class HomeMoviesSection extends StatelessWidget {
+  const HomeMoviesSection({
+    Key? key,
+    required this.titleName,
+    required this.collectionName,
+  }) : super(key: key);
+  final String titleName;
+  final String collectionName;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Text(
+              titleName,
+              style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    (context),
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => GridViewMoreMovies(
+                              collectionName: collectionName,
+                            )));
+              },
+              icon: const Icon(
+                Icons.read_more_outlined,
+                color: Colors.grey,
+              ))
+        ],
+      ),
     );
   }
 }
@@ -237,7 +250,7 @@ class KCarouselSlider extends StatelessWidget {
               options: CarouselOptions(
                   enableInfiniteScroll: true,
                   reverse: false,
-                  height: 177,
+                  height: 140,
                   viewportFraction: 0.32),
               itemCount: userData!.length,
               itemBuilder: (BuildContext context, int index, int realIndex) {
@@ -257,8 +270,8 @@ class KCarouselSlider extends StatelessWidget {
                                       )));
                         },
                         child: Container(
-                          height: 175,
-                          width: 117,
+                          height: 140,
+                          width: 105,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -293,7 +306,9 @@ class KCarouselSlider extends StatelessWidget {
               },
             );
           }
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(
+            color: Colors.red,
+          );
         });
   }
 }

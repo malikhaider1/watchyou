@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
         theme: ThemeData(
           primaryColor: primaryColor,
-          textTheme: GoogleFonts.aBeeZeeTextTheme(),
+          textTheme: GoogleFonts.alefTextTheme(),
           fontFamily: GoogleFonts.aBeeZee().fontFamily,
         ),
         debugShowCheckedModeBanner: false,

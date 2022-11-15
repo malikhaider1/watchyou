@@ -16,51 +16,51 @@ class KDrawer extends StatelessWidget {
         children: const [
           DrawerTile(
             movieType: 'action',
-            title: "Action Movies",
+            titleDrawerTile: "Action Movies",
           ),
           DrawerTile(
             movieType: 'anime',
-            title: "Anime Movies",
+            titleDrawerTile: "Anime Movies",
           ),
           DrawerTile(
             movieType: 'trending',
-            title: "Trending Movies",
+            titleDrawerTile: "Trending Movies",
           ),
           DrawerTile(
             movieType: 'comedies',
-            title: "comedies Movies",
+            titleDrawerTile: "comedies Movies",
           ),
           DrawerTile(
             movieType: 'familywatch',
-            title: "Family Watch Movies",
+            titleDrawerTile: "Family Watch Movies",
           ),
           DrawerTile(
             movieType: 'newrelease',
-            title: "newrelease Movies",
+            titleDrawerTile: "newrelease Movies",
           ),
           DrawerTile(
             movieType: 'scifi',
-            title: "SciFi Movies",
+            titleDrawerTile: "SciFi Movies",
           ),
           DrawerTile(
             movieType: 'horror',
-            title: "Horror Movies",
+            titleDrawerTile: "Horror Movies",
           ),
           DrawerTile(
             movieType: 'suspensefull',
-            title: "Suspensefull Movies",
+            titleDrawerTile: "Suspensefull Movies",
           ),
           DrawerTile(
             movieType: 'romance',
-            title: "Romance Movies",
+            titleDrawerTile: "Romance Movies",
           ),
           DrawerTile(
             movieType: 'reallife',
-            title: "Reallife Movies",
+            titleDrawerTile: "Reallife Movies",
           ),
           DrawerTile(
             movieType: 'addtodiary',
-            title: "Add to Diary Movies",
+            titleDrawerTile: "Add to Diary Movies",
           ),
         ],
       ),
@@ -72,10 +72,10 @@ class DrawerTile extends StatelessWidget {
   const DrawerTile({
     Key? key,
     required this.movieType,
-    required this.title,
+    required this.titleDrawerTile,
   }) : super(key: key);
   final String movieType;
-  final String title;
+  final String titleDrawerTile;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -88,12 +88,12 @@ class DrawerTile extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) => Movies(
-                        title: title,
+                        titleMovies: titleDrawerTile,
                         movieType: movieType,
                       )));
         },
         title: Text(
-          title,
+          titleDrawerTile,
           style: const TextStyle(color: Colors.white),
         ),
       ),

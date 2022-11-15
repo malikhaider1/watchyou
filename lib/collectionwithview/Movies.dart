@@ -6,10 +6,10 @@ import '../firebaseCrud/firebaseJasonData.dart';
 import '../widgets/showsnackbar.dart';
 
 class Movies extends StatefulWidget {
-  const Movies({Key? key, required this.movieType, required this.title})
+  const Movies({Key? key, required this.movieType, required this.titleMovies})
       : super(key: key);
   final String? movieType;
-  final String title;
+  final String titleMovies;
   @override
   State<Movies> createState() => _MoviesState();
 }
@@ -18,8 +18,8 @@ class _MoviesState extends State<Movies> {
   @override
   Widget build(BuildContext context) {
     return MoviesDisplayAdmin(
-      title: widget.title,
-      movieType: "${widget.movieType}",
+      titleDisplay: widget.titleMovies,
+      movieTypeRead: "${widget.movieType}",
     );
   }
 }
@@ -27,11 +27,11 @@ class _MoviesState extends State<Movies> {
 class MoviesDisplayAdmin extends StatelessWidget {
   const MoviesDisplayAdmin({
     Key? key,
-    required this.movieType,
-    required this.title,
+    required this.movieTypeRead,
+    required this.titleDisplay,
   }) : super(key: key);
-  final String movieType;
-  final String title;
+  final String movieTypeRead;
+  final String titleDisplay;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +39,10 @@ class MoviesDisplayAdmin extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
-        title: Text(title),
+        title: Text(titleDisplay),
       ),
       body: StreamBuilder<List<FirebaseJasonData>>(
-          stream: FirebaseCreateReadUpdateDelete.read(movieType),
+          stream: FirebaseCreateReadUpdateDelete.read(movieTypeRead),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -103,11 +103,11 @@ class MoviesDisplayAdmin extends StatelessWidget {
                                 ),
                               ),
                               Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  Text("${singleActionMovieData.movieName}"),
                                   Text(
-                                      "${singleActionMovieData.movieName?.substring(0, 5)} .."),
-                                  Text(
-                                    "${singleActionMovieData.genre?.substring(0, 15)} ..",
+                                    "${singleActionMovieData.genre}",
                                   ),
                                   Text("${singleActionMovieData.duration}"),
                                   Text("${singleActionMovieData.maturity}"),
@@ -124,6 +124,8 @@ class MoviesDisplayAdmin extends StatelessWidget {
                                                 builder:
                                                     (BuildContext context) =>
                                                         UpdateInformation(
+                                                          collectionNameToUpdate:
+                                                              movieTypeRead,
                                                           jasonData:
                                                               FirebaseJasonData(
                                                             id: singleActionMovieData
@@ -175,7 +177,7 @@ class MoviesDisplayAdmin extends StatelessWidget {
                                                             .delete(
                                                                 singleActionMovieData,
                                                                 context,
-                                                                "action");
+                                                                movieTypeRead);
                                                       },
                                                       child: Text("Confirm"),
                                                     )

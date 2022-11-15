@@ -62,7 +62,7 @@ class _KGridViewState extends State<KGridView> {
                                   BoxShadow(
                                     spreadRadius: 0.5,
                                     blurRadius: 1,
-                                    color: Colors.grey.withOpacity(0.3),
+                                    color: Colors.blueGrey.withOpacity(0.2),
                                   )
                                 ],
                                 borderRadius: BorderRadius.circular(12),

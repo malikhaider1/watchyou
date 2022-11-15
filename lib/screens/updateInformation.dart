@@ -6,9 +6,11 @@ import '../widgets/fieldwidget.dart';
 import '../widgets/kroundbutton.dart';
 
 class UpdateInformation extends StatefulWidget {
-  const UpdateInformation({Key? key, required this.jasonData})
+  const UpdateInformation(
+      {Key? key, required this.jasonData, required this.collectionNameToUpdate})
       : super(key: key);
   final FirebaseJasonData jasonData;
+  final String collectionNameToUpdate;
 
   @override
   State<UpdateInformation> createState() => _UpdateInformationState();
@@ -157,7 +159,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                             movieUrl: movieUrlController!.text,
                           ),
                           context,
-                          "action")
+                          widget.collectionNameToUpdate)
                       .then((value) => Navigator.pop(context));
                 },
                 borderRadius: 50,
