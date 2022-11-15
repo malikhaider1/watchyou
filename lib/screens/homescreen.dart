@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:watchyou/firebaseCrud/firebaseCreateReadUpdateDelete.dart';
 import 'package:watchyou/firebaseCrud/firebaseJasonData.dart';
 import 'package:watchyou/screens/DetailInfoScreen.dart';
+import 'package:watchyou/screens/single_tab.dart';
 
 import '../widgets/kAppBar.dart';
 import '../widgets/showsnackbar.dart';
@@ -145,7 +146,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              SingleTab(
+                                                index: currentIndex,
+                                                userData: userData,
+                                              )));
+                                },
                                 icon: const Icon(
                                   CupertinoIcons.play_circle,
                                   color: Colors.blueGrey,
@@ -167,6 +177,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   const HomeMoviesSection(
                       titleName: 'Comedies', collectionName: 'comedies'),
                   const KCarouselSlider(collectionName: 'comedies'),
+                  const HomeMoviesSection(
+                      titleName: 'Family', collectionName: 'familywatch'),
+                  const KCarouselSlider(collectionName: 'familywatch'),
+                  const HomeMoviesSection(
+                      titleName: 'Animation', collectionName: 'anime'),
+                  const KCarouselSlider(collectionName: 'anime'),
+                  const HomeMoviesSection(
+                      titleName: 'Sci-Fi', collectionName: 'scifi'),
+                  const KCarouselSlider(collectionName: 'scifi'),
                 ],
               );
             }

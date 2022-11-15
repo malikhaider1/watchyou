@@ -31,8 +31,9 @@ class _KGridViewState extends State<KGridView> {
             final userData = snapshot.data;
 
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
               child: GridView.builder(
+                shrinkWrap: true,
                 itemCount: userData!.length,
                 itemBuilder: (
                   BuildContext context,
@@ -55,8 +56,8 @@ class _KGridViewState extends State<KGridView> {
                           },
                           child: Center(
                             child: Container(
-                              height: 150,
-                              width: 110,
+                              height: 120,
+                              width: 90,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -77,7 +78,7 @@ class _KGridViewState extends State<KGridView> {
                         ),
                         Positioned(
                           top: 3,
-                          left: 5,
+                          left: 14,
                           child: Badge(
                             toAnimate: true,
                             shape: BadgeShape.square,

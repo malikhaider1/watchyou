@@ -55,7 +55,7 @@ class _SingleTabState extends State<SingleTab> {
             ]),
             subtitle: VlcSubtitleOptions([
               VlcSubtitleOptions.boldStyle(false),
-              VlcSubtitleOptions.fontSize(30),
+              VlcSubtitleOptions.fontSize(31),
               // VlcSubtitleOptions.outlineColor(VlcSubtitleColor.white),
               // VlcSubtitleOptions.outlineThickness(VlcSubtitleThickness.thin),
               // works only on externally added subtitles
