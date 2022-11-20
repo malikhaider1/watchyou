@@ -2,15 +2,12 @@ import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchyou/firebaseCrud/firebaseCreateReadUpdateDelete.dart';
-import 'package:watchyou/firebaseCrud/firebaseJasonData.dart';
 import 'package:watchyou/screens/DetailInfoScreen.dart';
-import 'package:watchyou/screens/single_tab.dart';
+import 'package:watchyou/screens/FirstScreen.dart';
 
 import '../widgets/kAppBar.dart';
-import '../widgets/showsnackbar.dart';
 import 'GridViewMovies.dart';
-import 'LoginPage.dart';
+import 'comingsoon.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,7 +18,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  int currentIndex = 0;
+
+  static List bottomBarList = [
+    const FirstScreen(),
+    const FirstScreen(),
+    const ComingSoon(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -31,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -54,147 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ]),
       appBar: kAppBar(context),
       backgroundColor: Colors.black,
-      body: StreamBuilder<List<FirebaseJasonData>>(
-          stream: FirebaseCreateReadUpdateDelete.read('action'),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.red,
-                ),
-              );
-            }
-            if (snapshot.hasError) {
-              showSnackBar("Something Went Wrong", context);
-            }
-            if (snapshot.hasData) {
-              final userData = snapshot.data;
-              return ListView(
-                children: [
-                  Column(
-                    children: [
-                      CarouselSlider.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index, int) {
-                            final boardingData = userData![index];
-
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            DetailInfoScreen(
-                                              userData: userData,
-                                              index: index,
-                                            )));
-                              },
-                              child: Container(
-                                width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        color: primaryColor.withOpacity(0.1),
-                                      ),
-                                    ],
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            '${boardingData.imageUrl}'),
-                                        fit: BoxFit.cover),
-                                    shape: BoxShape.rectangle),
-                              ),
-                            );
-                          },
-                          options: CarouselOptions(
-                            onPageChanged: (index, reason) {
-                              currentIndex = index;
-                            },
-                            initialPage: currentIndex,
-                            autoPlayCurve: Curves.easeInSine,
-                            autoPlay: true,
-                            enableInfiniteScroll: true,
-                            viewportFraction: 0.4,
-                            height: 240,
-                            enlargeCenterPage: true,
-                          )),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Available Now',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade700,
-                                      fontSize: 15),
-                                ),
-                                Text(
-                                  '${userData![currentIndex].movieName}',
-                                  style: const TextStyle(
-                                      color: Colors.white70, fontSize: 19),
-                                ),
-                              ],
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              SingleTab(
-                                                index: currentIndex,
-                                                userData: userData,
-                                              )));
-                                },
-                                icon: const Icon(
-                                  CupertinoIcons.play_circle,
-                                  color: Colors.blueGrey,
-                                  size: 38,
-                                )),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const HomeMoviesSection(
-                    collectionName: 'action',
-                    titleName: 'Action',
-                  ),
-                  const KCarouselSlider(collectionName: 'action'),
-                  const HomeMoviesSection(
-                      titleName: 'Horror', collectionName: 'horror'),
-                  const KCarouselSlider(collectionName: 'horror'),
-                  const HomeMoviesSection(
-                      titleName: 'Comedies', collectionName: 'comedies'),
-                  const KCarouselSlider(collectionName: 'comedies'),
-                  const HomeMoviesSection(
-                      titleName: 'Family', collectionName: 'familywatch'),
-                  const KCarouselSlider(collectionName: 'familywatch'),
-                  const HomeMoviesSection(
-                      titleName: 'Animation', collectionName: 'anime'),
-                  const KCarouselSlider(collectionName: 'anime'),
-                  const HomeMoviesSection(
-                      titleName: 'Sci-Fi', collectionName: 'scifi'),
-                  const KCarouselSlider(collectionName: 'scifi'),
-                ],
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.blueGrey,
-              ),
-            );
-          }),
+      body: bottomBarList[selectedIndex],
     );
   }
 }
@@ -204,9 +68,11 @@ class HomeMoviesSection extends StatelessWidget {
     Key? key,
     required this.titleName,
     required this.collectionName,
+    required this.list,
   }) : super(key: key);
   final String titleName;
   final String collectionName;
+  final List list;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -216,7 +82,7 @@ class HomeMoviesSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Text(
               titleName,
               style: const TextStyle(
@@ -231,7 +97,8 @@ class HomeMoviesSection extends StatelessWidget {
                     (context),
                     MaterialPageRoute(
                         builder: (BuildContext context) => GridViewMoreMovies(
-                              collectionName: collectionName,
+                              // collectionName: collectionName,
+                              list: list,
                             )));
               },
               icon: const Icon(
@@ -245,89 +112,112 @@ class HomeMoviesSection extends StatelessWidget {
 }
 
 class KCarouselSlider extends StatelessWidget {
-  const KCarouselSlider({Key? key, required this.collectionName})
+  const KCarouselSlider(
+      {Key? key,
+      required this.collectionName,
+      required this.collectionCondition,
+      required this.list})
       : super(key: key);
   final String collectionName;
-
+  final String collectionCondition;
+  final List list;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<FirebaseJasonData>>(
-        stream: FirebaseCreateReadUpdateDelete.read(collectionName),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.hasError) {
-            showSnackBar("Something Went Wrong", context);
-          }
-          if (snapshot.hasData) {
-            final userData = snapshot.data;
-
-            return CarouselSlider.builder(
-              options: CarouselOptions(
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  height: 140,
-                  viewportFraction: 0.32),
-              itemCount: userData!.length,
-              itemBuilder: (BuildContext context, int index, int realIndex) {
-                final dataAccessor = userData[index];
-                return GestureDetector(
-                    onTap: () {},
-                    child: Stack(children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      DetailInfoScreen(
-                                        userData: userData,
-                                        index: index,
-                                      )));
-                        },
-                        child: Container(
-                          height: 140,
-                          width: 105,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                color: Colors.blueGrey.withOpacity(0.2),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  '${dataAccessor.imageUrl}',
-                                ),
-                                fit: BoxFit.cover),
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return CarouselSlider.builder(
+        options: CarouselOptions(
+            enableInfiniteScroll: true,
+            reverse: false,
+            height: 140,
+            viewportFraction: 0.32),
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int index, int realIndex) {
+          // final dataAccessor = userData[index];
+          {
+            return GestureDetector(
+                onTap: () {},
+                child: Stack(children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  DetailInfoScreen(
+                                    userData: list[index],
+                                  )));
+                    },
+                    child: Container(
+                      height: 140,
+                      width: 105,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            color: Colors.blueGrey.withOpacity(0.2),
                           ),
-                        ),
+                        ],
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              '${list[index].imageUrl}',
+                            ),
+                            fit: BoxFit.cover),
                       ),
-                      Positioned(
-                        top: 5,
-                        left: 7,
-                        child: Badge(
-                          toAnimate: false,
-                          shape: BadgeShape.square,
-                          badgeColor: Colors.blueGrey.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12),
-                          badgeContent: Text('⭐ ${dataAccessor.imdbRating}',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.8))),
-                        ),
-                      )
-                    ]));
-              },
-            );
+                    ),
+                  ),
+                  Positioned(
+                    top: 5,
+                    left: 7,
+                    child: Badge(
+                      toAnimate: false,
+                      shape: BadgeShape.square,
+                      badgeColor: Colors.blueGrey.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      badgeContent: Text('⭐ ${list[index].imdbRating}',
+                          style:
+                              TextStyle(color: Colors.white.withOpacity(0.8))),
+                    ),
+                  )
+                ]));
           }
-          return const CircularProgressIndicator(
-            color: Colors.red,
-          );
+          return const SizedBox();
         });
+
+    // StreamBuilder<List<FirebaseJasonData>>(
+    //     stream: FirebaseCreateReadUpdateDelete.read(collectionName),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return const Center(
+    //           child: CircularProgressIndicator(),
+    //         );
+    //       }
+    //       if (snapshot.hasError) {
+    //         showSnackBar("Something Went Wrong", context);
+    //       }
+    //       if (snapshot.hasData) {
+    //         final userData = snapshot.data;
+    //         List action=[],horror=[],comedy=[],animation=[],family=[],sci=[];
+    //
+    //         for(final movie in userData!){
+    //
+    //           if(movie.genre!.contains('animation')){
+    //             action.add(movie);
+    //           }
+    //
+    //         }
+    //         Column(children: [
+    //
+    //         ],);
+    //
+    //
+    //       }
+    //
+    //       return const CircularProgressIndicator(
+    //         color: Colors.red,
+    //       );
+    //     });
   }
 }

@@ -107,7 +107,7 @@ class MoviesDisplayAdmin extends StatelessWidget {
                                 children: [
                                   Text("${singleActionMovieData.movieName}"),
                                   Text(
-                                    "${singleActionMovieData.genre}",
+                                    "${singleActionMovieData.genre?.substring(0, 10)}",
                                   ),
                                   Text("${singleActionMovieData.duration}"),
                                   Text("${singleActionMovieData.maturity}"),

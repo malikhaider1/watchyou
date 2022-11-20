@@ -7,12 +7,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../assets/authwithgoogle.dart';
 import '../firebaseCrud/firebaseJasonData.dart';
 import '../widgets/gridView.dart';
+import 'SearchScreen.dart';
 
 class DetailInfoScreen extends StatefulWidget {
-  const DetailInfoScreen({Key? key, this.userData, required this.index})
-      : super(key: key);
-  final List<FirebaseJasonData>? userData;
-  final int index;
+  const DetailInfoScreen({Key? key, required this.userData}) : super(key: key);
+  final FirebaseJasonData userData;
 
   @override
   State<DetailInfoScreen> createState() => _DetailInfoScreenState();
@@ -27,7 +26,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
   @override
   void initState() {
     _controller = YoutubePlayerController(
-      initialVideoId: "${widget.userData![widget.index].videoUrl}",
+      initialVideoId: "${widget.userData!.videoUrl}",
       flags: const YoutubePlayerFlags(
         autoPlay: false,
       ),
@@ -69,7 +68,13 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
               ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const SearchMovie()));
+              },
               icon: const Icon(
                 CupertinoIcons.search,
                 color: Colors.blueGrey,
@@ -134,7 +139,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                 SizedBox(
                   width: 260,
                   child: Text(
-                    "${widget.userData![widget.index].movieName}",
+                    "${widget.userData!.movieName}",
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,
                         color: Colors.white.withOpacity(0.8),
@@ -145,7 +150,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                   width: 5,
                 ),
                 Text(
-                  widget.userData![widget.index].duration!.substring(6),
+                  widget.userData!.duration!.substring(6),
                   style: const TextStyle(color: Colors.grey, fontSize: 21),
                 ),
               ],
@@ -164,7 +169,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      "${widget.userData![widget.index].maturity}",
+                      "${widget.userData!.maturity}",
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
@@ -190,7 +195,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                   width: 20,
                 ),
                 Text(
-                  "⭐${widget.userData![widget.index].imdbRating}",
+                  "⭐${widget.userData!.imdbRating}",
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.7), fontSize: 16),
                 ),
@@ -203,24 +208,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
               Column(
                 children: [
                   IconButton(
-                    onPressed: () async {
-                      // if () {
-                      //   return await FirebaseCreateReadUpdateDelete.create(
-                      //       FirebaseJasonData(
-                      //         maturity: ,
-                      //         duration: ,
-                      //         description: ,
-                      //         genre: ,
-                      //         videoUrl:,
-                      //         imageUrl: ,
-                      //         movieName: ,
-                      //         imdbRating:,
-                      //         movieUrl: ,
-                      //       ),
-                      //       context,
-                      //       "addtodiary");
-                      // }
-                    },
+                    onPressed: () async {},
                     icon: const Icon(CupertinoIcons.add),
                     color: Colors.white,
                   ),
@@ -240,15 +228,10 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                           _controller.pause();
                         });
 
-                        // Get.to(() => SingleTab(
-                        //       index: widget.index,
-                        //       userData: widget.userData,
-                        //     ));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) => SingleTab(
-                                      index: widget.index,
                                       userData: widget.userData,
                                     )));
                       }
@@ -279,7 +262,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                       color: Colors.white.withOpacity(0.7), fontSize: 19),
                 ),
                 Text(
-                  "${widget.userData![widget.index].genre} - ${widget.userData![widget.index].duration!.substring(0, 6)}",
+                  "${widget.userData!.genre} - ${widget.userData!.duration!.substring(0, 6)}",
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.5), fontSize: 13),
                 ),
@@ -297,7 +280,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                       color: Colors.white.withOpacity(0.7), fontSize: 19),
                 ),
                 Text(
-                  "${widget.userData![widget.index].description}",
+                  "${widget.userData!.description}",
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.5), fontSize: 13),
                 ),
@@ -318,9 +301,9 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
                   Tab(
                     text: "Similar",
                   ),
-                  Tab(
-                    text: "More",
-                  ),
+                  // Tab(
+                  //   text: "More",
+                  // ),
                 ]),
           ),
           SizedBox(
@@ -328,11 +311,16 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
             child: TabBarView(controller: tabController, children: [
               KGridView(
                 collectionName:
-                    widget.userData![widget.index].genre!.contains('action')
-                        ? 'action'
-                        : 'action',
+                    widget.userData.genre!.toLowerCase().contains('action')
+                        ? 'movies'
+                        : 'movies',
               ),
-              const Text("More"),
+              // KGridView(
+              //   collectionName:
+              //       widget.userData.genre!.toLowerCase().contains('animation')
+              //           ? 'movies'
+              //           : 'movies',
+              // ),
             ]),
           )
         ],

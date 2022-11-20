@@ -29,7 +29,6 @@ class _KGridViewState extends State<KGridView> {
           }
           if (snapshot.hasData) {
             final userData = snapshot.data;
-
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
               child: GridView.builder(
@@ -50,8 +49,7 @@ class _KGridViewState extends State<KGridView> {
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         DetailInfoScreen(
-                                          userData: userData,
-                                          index: index,
+                                          userData: dataAccessor,
                                         )));
                           },
                           child: Center(

@@ -8,11 +8,12 @@ import 'video_data.dart';
 import 'vlc_player_with_controls.dart';
 
 class SingleTab extends StatefulWidget {
-  const SingleTab({Key? key, this.userData, required this.index})
-      : super(key: key);
+  const SingleTab({
+    Key? key,
+    required this.userData,
+  }) : super(key: key);
 
-  final List<FirebaseJasonData>? userData;
-  final int index;
+  final FirebaseJasonData userData;
 
   @override
   _SingleTabState createState() => _SingleTabState();
@@ -30,7 +31,7 @@ class _SingleTabState extends State<SingleTab> {
     listVideos = <VideoData>[];
     //
     listVideos.add(VideoData(
-      path: '${widget.userData![widget.index].movieUrl}',
+      path: '${widget.userData!.movieUrl}',
       type: VideoType.network,
     ));
   }

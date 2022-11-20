@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watchyou/screens/SearchScreen.dart';
 
 import '../assets/authwithgoogle.dart';
 
@@ -25,7 +26,12 @@ AppBar kAppBar(
     backgroundColor: Colors.transparent,
     actions: [
       IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const SearchMovie()));
+          },
           icon: const Icon(
             CupertinoIcons.search,
             color: Colors.blueGrey,

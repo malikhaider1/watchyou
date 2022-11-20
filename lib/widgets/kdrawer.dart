@@ -15,6 +15,10 @@ class KDrawer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 50),
         children: const [
           DrawerTile(
+            movieType: 'movies',
+            titleDrawerTile: "All Movies",
+          ),
+          DrawerTile(
             movieType: 'action',
             titleDrawerTile: "Action Movies",
           ),
