@@ -97,15 +97,6 @@ class _ControlsOverlayState extends State<ControlsOverlay> {
       } else {
         recordingTextOpacity = 0;
       }
-      // check for change in recording state
-      // if (isRecording != _controller.value.isRecording) {
-      //   isRecording = _controller.value.isRecording;
-      //   if (!isRecording) {
-      //     if (widget.onStopRecording != null) {
-      //       widget.onStopRecording(_controller.value.recordPath);
-      //     }
-      //   }
-      // }
       setState(() {});
     }
   }
@@ -139,271 +130,278 @@ class _ControlsOverlayState extends State<ControlsOverlay> {
             switch (widget.controller.value.playingState) {
               case PlayingState.initialized:
               case PlayingState.paused:
-                return Visibility(
-                  visible: visible,
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      //mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                      children: [
-                        Expanded(
-                          flex: 0,
-                          child: Container(
-                            alignment: Alignment.topLeft,
-                            child: Visibility(
-                              visible: visible,
-                              child: Container(
-                                color: ControlsOverlay._playerControlsBgColor
-                                    .withOpacity(0.0),
-                                child: Wrap(
-                                  alignment: WrapAlignment.start,
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 0,
+                        child: Wrap(
+                          alignment: WrapAlignment.spaceBetween,
+                          children: [
+                            Wrap(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.arrow_back_ios),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  iconSize: 20,
+                                ),
+                                Stack(
                                   children: [
-                                    Wrap(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(Icons.arrow_back_ios),
-                                          color: Colors.white,
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          iconSize: 20,
+                                    IconButton(
+                                      tooltip: 'Get Subtitle Tracks',
+                                      icon: Icon(Icons.closed_caption),
+                                      color: Colors.white,
+                                      onPressed: _getSubtitleTracks,
+                                      iconSize: 20,
+                                    ),
+                                    Positioned(
+                                      top: 15,
+                                      right: 10,
+                                      child: IgnorePointer(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.orange,
+                                            borderRadius:
+                                                BorderRadius.circular(1),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 1,
+                                            horizontal: 2,
+                                          ),
+                                          child: Text(
+                                            '$numberOfCaptions',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 5,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ),
-                                        Stack(
-                                          children: [
-                                            IconButton(
-                                              tooltip: 'Get Subtitle Tracks',
-                                              icon: Icon(Icons.closed_caption),
-                                              color: Colors.white,
-                                              onPressed: _getSubtitleTracks,
-                                              iconSize: 20,
-                                            ),
-                                            Positioned(
-                                              top: 15,
-                                              right: 10,
-                                              child: IgnorePointer(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.orange,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1),
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                    vertical: 1,
-                                                    horizontal: 2,
-                                                  ),
-                                                  child: Text(
-                                                    '$numberOfCaptions',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Stack(
-                                          children: [
-                                            IconButton(
-                                              tooltip: 'Get Audio Tracks',
-                                              icon: Icon(Icons.audiotrack),
-                                              color: Colors.white,
-                                              onPressed: _getAudioTracks,
-                                              iconSize: 20,
-                                            ),
-                                            Positioned(
-                                              top: 15,
-                                              right: 10,
-                                              child: IgnorePointer(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.orange,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            1),
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                    vertical: 1,
-                                                    horizontal: 2,
-                                                  ),
-                                                  child: Text(
-                                                    '$numberOfAudioTracks',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 0,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              IconButton(
-                                onPressed: () => _seekRelative(
-                                    ControlsOverlay._seekStepBackward),
-                                color: ControlsOverlay._iconColor,
-                                iconSize: ControlsOverlay._seekButtonIconSize,
-                                icon: Icon(Icons.replay_10),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  if (widget.controller.value.isPlaying) {
-                                    _pause();
-                                  } else {
-                                    _play();
-                                  }
-                                },
-                                color: ControlsOverlay._iconColor,
-                                iconSize: ControlsOverlay._playButtonIconSize,
-                                icon: widget.controller.value.isPlaying
-                                    ? Icon(Icons.pause)
-                                    : Icon(Icons.play_arrow),
-                              ),
-                              IconButton(
-                                onPressed: () => _seekRelative(
-                                    ControlsOverlay._seekStepForward),
-                                color: ControlsOverlay._iconColor,
-                                iconSize: ControlsOverlay._seekButtonIconSize,
-                                icon: Icon(Icons.forward_10),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 0,
-                          child: Container(
-                            margin: EdgeInsets.only(right: 20),
-                            alignment: Alignment.bottomLeft,
-                            child: Visibility(
-                              visible: true,
-                              child: Container(
-                                color: _playerControlsBgColor.withOpacity(0.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                Stack(
                                   children: [
                                     IconButton(
+                                      tooltip: 'Get Audio Tracks',
+                                      icon: Icon(Icons.audiotrack),
                                       color: Colors.white,
-                                      icon: _controller.value.isPlaying
-                                          ? Icon(Icons.pause_circle_outline)
-                                          : Icon(Icons.play_circle_outline),
-                                      onPressed: _togglePlaying,
+                                      onPressed: _getAudioTracks,
+                                      iconSize: 20,
                                     ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            position,
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                    Positioned(
+                                      top: 15,
+                                      right: 10,
+                                      child: IgnorePointer(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.orange,
+                                            borderRadius:
+                                                BorderRadius.circular(1),
                                           ),
-                                          Expanded(
-                                            child: Slider(
-                                              activeColor: Colors.redAccent,
-                                              inactiveColor: Colors.white70,
-                                              value: sliderValue,
-                                              min: 0.0,
-                                              max: (!validPosition &&
-                                                      _controller
-                                                              .value.duration ==
-                                                          null)
-                                                  ? 1.0
-                                                  : _controller
-                                                      .value.duration.inSeconds
-                                                      .toDouble(),
-                                              onChanged: validPosition
-                                                  ? _onSliderPositionChanged
-                                                  : null,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 1,
+                                            horizontal: 2,
+                                          ),
+                                          child: Text(
+                                            '$numberOfAudioTracks',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 5,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Text(
-                                            duration,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                    IconButton(
-                                        icon: Icon(Icons.fullscreen),
-                                        color: Colors.white,
-                                        onPressed: () async {
-                                          dynamic portraitDown =
-                                              DeviceOrientation.portraitDown;
-                                          dynamic portraitUp =
-                                              DeviceOrientation.portraitUp;
-                                          dynamic landscapeLeft =
-                                              DeviceOrientation.landscapeLeft;
-                                          dynamic landscapeRight =
-                                              DeviceOrientation.landscapeRight;
-                                          setState(() {
-                                            if (portraitUp ==
-                                                    DeviceOrientation
-                                                        .portraitUp ||
-                                                portraitDown ==
-                                                    DeviceOrientation
-                                                        .portraitDown) {
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 0,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () => _seekRelative(
+                                  ControlsOverlay._seekStepBackward),
+                              color: ControlsOverlay._iconColor,
+                              iconSize: ControlsOverlay._seekButtonIconSize,
+                              icon: Icon(Icons.replay_10),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                if (widget.controller.value.isPlaying) {
+                                  _pause();
+                                } else {
+                                  _play();
+                                }
+                              },
+                              color: ControlsOverlay._iconColor,
+                              iconSize: ControlsOverlay._playButtonIconSize,
+                              icon: widget.controller.value.isPlaying
+                                  ? Icon(Icons.pause)
+                                  : Icon(Icons.play_arrow),
+                            ),
+                            IconButton(
+                              onPressed: () => _seekRelative(
+                                  ControlsOverlay._seekStepForward),
+                              color: ControlsOverlay._iconColor,
+                              iconSize: ControlsOverlay._seekButtonIconSize,
+                              icon: Icon(Icons.forward_10),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.only(right: 20),
+                          alignment: Alignment.bottomLeft,
+                          child: Visibility(
+                            visible: true,
+                            child: Container(
+                              color: _playerControlsBgColor.withOpacity(0.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    color: Colors.white,
+                                    icon: _controller.value.isPlaying
+                                        ? Icon(Icons.pause_circle_outline)
+                                        : Icon(Icons.play_circle_outline),
+                                    onPressed: _togglePlaying,
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          position,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Expanded(
+                                          child: Slider(
+                                            activeColor: Colors.redAccent,
+                                            inactiveColor: Colors.white70,
+                                            value: sliderValue,
+                                            min: 0.0,
+                                            max: (!validPosition &&
+                                                    _controller
+                                                            .value.duration ==
+                                                        null)
+                                                ? 1.0
+                                                : _controller
+                                                    .value.duration.inSeconds
+                                                    .toDouble(),
+                                            onChanged: validPosition
+                                                ? _onSliderPositionChanged
+                                                : null,
+                                          ),
+                                        ),
+                                        Text(
+                                          duration,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  IconButton(
+                                      icon: Icon(Icons.fullscreen),
+                                      color: Colors.white,
+                                      onPressed: () async {
+                                        // dynamic portraitDown =
+                                        //     DeviceOrientation.portraitDown;
+                                        // dynamic portraitUp =
+                                        //     DeviceOrientation.portraitUp;
+                                        // dynamic landscapeLeft =
+                                        //     DeviceOrientation.landscapeLeft;
+                                        // dynamic landscapeRight =
+                                        //     DeviceOrientation.landscapeRight;
+                                        setState(() {
+                                          // if (portraitUp ==
+                                          //         DeviceOrientation
+                                          //             .portraitUp ||
+                                          //     portraitDown ==
+                                          //         DeviceOrientation
+                                          //             .portraitDown) {
+                                          //   SystemChrome
+                                          //       .setPreferredOrientations([
+                                          //     DeviceOrientation.landscapeRight,
+                                          //     DeviceOrientation.landscapeLeft,
+                                          //   ]);
+                                          //   SystemChrome.setEnabledSystemUIMode(
+                                          //       SystemUiMode.immersiveSticky);
+                                          // } else if (landscapeLeft ==
+                                          //         DeviceOrientation
+                                          //             .landscapeLeft ||
+                                          //     landscapeRight ==
+                                          //         DeviceOrientation
+                                          //             .landscapeRight) {
+                                          //   SystemChrome
+                                          //       .setPreferredOrientations([
+                                          //     DeviceOrientation.portraitUp,
+                                          //     DeviceOrientation.portraitDown,
+                                          //   ]);
+                                          //   SystemChrome.setEnabledSystemUIMode(
+                                          //       SystemUiMode.immersiveSticky);
+                                          // }
+                                          if (DeviceOrientation.portraitUp ==
+                                                  DeviceOrientation
+                                                      .portraitUp ||
+                                              DeviceOrientation.portraitDown ==
+                                                  DeviceOrientation
+                                                      .portraitDown) {
+                                            setState(() {
                                               SystemChrome
                                                   .setPreferredOrientations([
                                                 DeviceOrientation
                                                     .landscapeRight,
                                                 DeviceOrientation.landscapeLeft,
                                               ]);
-                                              SystemChrome
-                                                  .setEnabledSystemUIMode(
-                                                      SystemUiMode
-                                                          .immersiveSticky);
-                                            } else if (landscapeLeft ==
-                                                    DeviceOrientation
-                                                        .landscapeLeft ||
-                                                landscapeRight ==
-                                                    DeviceOrientation
-                                                        .landscapeRight) {
+                                            });
+
+                                            // SystemChrome.setEnabledSystemUIMode(
+                                            //     SystemUiMode.immersiveSticky);
+                                          } else if (DeviceOrientation
+                                                  .portraitUp !=
+                                              DeviceOrientation.portraitUp) {
+                                            setState(() {
                                               SystemChrome
                                                   .setPreferredOrientations([
                                                 DeviceOrientation.portraitUp,
                                                 DeviceOrientation.portraitDown,
                                               ]);
-                                              SystemChrome
-                                                  .setEnabledSystemUIMode(
-                                                      SystemUiMode
-                                                          .immersiveSticky);
-                                            }
-                                          });
-                                        }),
-                                  ],
-                                ),
+                                            });
+
+                                            // SystemChrome.setEnabledSystemUIMode(
+                                            //     SystemUiMode.immersiveSticky);
+                                          }
+                                        });
+                                      }),
+                                ],
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
 

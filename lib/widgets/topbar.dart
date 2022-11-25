@@ -16,8 +16,8 @@ class kTopBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            height: 80,
-            width: 120,
+            height: 60,
+            width: 70,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('images/watchyouinnerlogo.png'),
@@ -34,6 +34,7 @@ class kTopBar extends StatelessWidget {
             icon: Icon(
               Icons.arrow_back_ios_new,
               color: primaryColor,
+              size: 18,
             ),
           ),
         ),

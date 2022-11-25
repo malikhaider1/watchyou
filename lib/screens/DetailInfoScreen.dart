@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchyou/screens/single_tab.dart';
+import 'package:watchyou/widgets/kAlertDialouge.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../assets/authwithgoogle.dart';
 import '../firebaseCrud/firebaseJasonData.dart';
 import '../widgets/gridView.dart';
 import 'SearchScreen.dart';
@@ -41,7 +41,7 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 2, vsync: this);
+    TabController tabController = TabController(length: 1, vsync: this);
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp,
     //   DeviceOrientation.portraitDown,
@@ -81,26 +81,27 @@ class _DetailInfoScreenState extends State<DetailInfoScreen>
               )),
           TextButton(
               onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          content: TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  signOut();
-                                  Navigator.pop(context);
-                                });
-                              },
-                              child: const Text(
-                                "Confirm",
-                                style: TextStyle(color: Colors.white54),
-                              )),
-                          backgroundColor: Colors.black54,
-                          title: const Text(
-                            "Sign out",
-                            style: TextStyle(color: Colors.white54),
-                          ),
-                        ));
+                kAlertDialogue(context);
+                // showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) => AlertDialog(
+                //           content: TextButton(
+                //               onPressed: () {
+                //                 setState(() {
+                //                   signOut();
+                //                   Navigator.pop(context);
+                //                 });
+                //               },
+                //               child: const Text(
+                //                 "Confirm",
+                //                 style: TextStyle(color: Colors.white54),
+                //               )),
+                //           backgroundColor: Colors.black54,
+                //           title: const Text(
+                //             "Sign out",
+                //             style: TextStyle(color: Colors.white54),
+                //           ),
+                //         ));
               },
               child: const Text(
                 "Sign Out",

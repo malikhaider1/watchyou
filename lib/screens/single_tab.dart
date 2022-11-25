@@ -52,7 +52,7 @@ class _SingleTabState extends State<SingleTab> {
           hwAcc: HwAcc.full,
           options: VlcPlayerOptions(
             advanced: VlcAdvancedOptions([
-              VlcAdvancedOptions.networkCaching(2000),
+              VlcAdvancedOptions.networkCaching(1500),
             ]),
             subtitle: VlcSubtitleOptions([
               VlcSubtitleOptions.boldStyle(false),
@@ -87,85 +87,13 @@ class _SingleTabState extends State<SingleTab> {
       child: VlcPlayerWithControls(
         key: _key,
         controller: _controller,
-        // onStopRecording: (recordPath) {
-        //   setState(() {
-        //     listVideos.add(VideoData(
-        //       name: 'Recorded Video',
-        //       path: recordPath,
-        //       type: VideoType.network,
-        //     ));
-        //   });
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       content: Text(
-        //           'The recorded video file has been added to the end of list.'),
-        //     ),
-        //   );
-        // },
       ),
     );
-    // ListView.builder(
-    //   shrinkWrap: true,
-    //   itemCount: listVideos.length,
-    //   physics: NeverScrollableScrollPhysics(),
-    //   itemBuilder: (BuildContext context, int index) {
-    //     var video = listVideos[index];
-    //     IconData iconData;
-    //     switch (video.type) {
-    //       case VideoType.network:
-    //         iconData = Icons.cloud;
-    //         break;
-    //     }
-    //     return ListTile(
-    //       dense: true,
-    //       selected: selectedVideoIndex == index,
-    //       selectedTileColor: Colors.black54,
-    //       leading: Icon(
-    //         iconData,
-    //         color:
-    //             selectedVideoIndex == index ? Colors.white : Colors.black,
-    //       ),
-    //       title: Text(
-    //         video.name,
-    //         overflow: TextOverflow.ellipsis,
-    //         style: TextStyle(
-    //           color:
-    //               selectedVideoIndex == index ? Colors.white : Colors.black,
-    //         ),
-    //       ),
-    //       subtitle: Text(
-    //         video.path,
-    //         overflow: TextOverflow.ellipsis,
-    //         style: TextStyle(
-    //           color:
-    //               selectedVideoIndex == index ? Colors.white : Colors.black,
-    //         ),
-    //       ),
-    //       onTap: () async {
-    //         await _controller.stopRecording();
-    //         switch (video.type) {
-    //           case VideoType.network:
-    //             await _controller.setMediaFromNetwork(
-    //               video.path,
-    //               hwAcc: HwAcc.full,
-    //             );
-    //             break;
-    //         }
-    //         setState(() {
-    //           selectedVideoIndex = index;
-    //         });
-    //       },
-    //     );
-    //   },
-    // ),
-    //   ],
-    // );
   }
 
   @override
   void dispose() async {
     super.dispose();
-    await _controller.stopRecording();
     await _controller.stopRendererScanning();
     await _controller.dispose();
   }

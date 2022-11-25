@@ -1,14 +1,13 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:watchyou/assets/authwithgoogle.dart';
 import 'package:watchyou/assets/signinwithemail.dart';
 import 'package:watchyou/screens/signuppage.dart';
 import 'package:watchyou/widgets/kroundbutton.dart';
 
-import '../assets/authwithgoogle.dart';
 import '../main.dart';
 import '../widgets/fieldwidget.dart';
-import '../widgets/topbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -44,115 +43,116 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: Scaffold(
-        body: Material(
-          color: Colors.black,
-          child: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('images/background.png'))),
-                ),
-                const kTopBar(),
-                // SizedBox(
-                //   height: 30,
-                // ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 80,
-                        width: 120,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('images/watchyoulogo.png'),
-                              fit: BoxFit.fitWidth),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            toolbarHeight: 40,
+            leading: const BackButton(),
+          ),
+          backgroundColor: Colors.black,
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Container(
+              //   decoration: const BoxDecoration(
+              //       image: DecorationImage(
+              //           image: AssetImage('images/background.png'))),
+              // ),
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    KFieldWidget(
-                      autoValidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (email) {
-                        if (email != null && !EmailValidator.validate(email)) {
-                          return "Enter a valid email";
-                        } else {}
-                        return null;
-                      },
-                      controller: emailController,
-                      hintText: "example@email.com",
-                      labelText: "Email",
+              // Expanded(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Container(
+              //         height: 80,
+              //         width: 120,
+              //         decoration: const BoxDecoration(
+              //           image: DecorationImage(
+              //               image: AssetImage('images/watchyoulogo.png'),
+              //               fit: BoxFit.fitWidth),
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 40),
+                child: Column(
+                  children: const [
+                    Text(
+                      "Login",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    KFieldWidget(
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value != null && value.length < 8) {
-                            return 'Enter correct Password';
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: passwordController,
-                        hintText: "Password",
-                        labelText: 'Password'),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25, bottom: 10),
-                      child: KElevatedButton(
-                        maximumSize: const Size(260, 60),
-                        minimumSize: const Size(260, 60),
-                        title: "Login",
-                        color: primaryColor,
-                        opacity: 0,
-                        size: 17,
-                        onTap: () {
-                          setState(() {
-                            if (formKey.currentState!.validate()) {
-                              loginUser();
-                            }
-                          });
-                        },
-                        borderRadius: 25,
-                        textColor: Colors.black,
-                      ),
+                    SizedBox(
+                      height: 6,
                     ),
                     Text(
-                      'or',
-                      style:
-                          TextStyle(color: Colors.grey.shade500, fontSize: 16),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: KElevatedButton(
-                        maximumSize: const Size(260, 60),
-                        minimumSize: const Size(260, 60),
-                        title: "Login with Google",
-                        color: primaryColor,
-                        opacity: 0,
-                        size: 17,
-                        onTap: () {
-                          signInWithGoogle();
-                          navigatorKey.currentState!
-                              .popUntil((route) => route.isFirst);
-                        },
-                        borderRadius: 25,
-                        textColor: Colors.black,
-                      ),
+                      "Welcome Back!",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Padding(
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  KFieldWidget(
+                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (email) {
+                      if (email != null && !EmailValidator.validate(email)) {
+                        return "Enter a valid email";
+                      } else {}
+                      return null;
+                    },
+                    controller: emailController,
+                    hintText: "example@email.com",
+                    labelText: "Email",
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  KFieldWidget(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value != null && value.length < 8) {
+                          return 'Enter correct Password';
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: passwordController,
+                      hintText: "Password",
+                      labelText: 'Password'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25, bottom: 10),
+                    child: KElevatedButton(
+                      maximumSize: const Size(278, 48),
+                      minimumSize: const Size(278, 48),
+                      title: "Login",
+                      color: Colors.red,
+                      opacity: 0,
+                      size: 16,
+                      onTap: () {
+                        setState(() {
+                          if (formKey.currentState!.validate()) {
+                            loginUser();
+                          }
+                        });
+                      },
+                      borderRadius: 15,
+                      textColor: Colors.white,
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -180,9 +180,61 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 120,
+                          decoration: const BoxDecoration(
+                              border: Border.fromBorderSide(
+                                  BorderSide(width: 1, color: Colors.white))),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          'Or',
+                          style: TextStyle(
+                              color: Colors.white60,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          width: 120,
+                          decoration: const BoxDecoration(
+                              border: Border.fromBorderSide(
+                                  BorderSide(width: 1, color: Colors.white))),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: KElevatedButton(
+                      maximumSize: const Size(278, 48),
+                      minimumSize: const Size(278, 48),
+                      title: "Login with Google",
+                      color: Colors.blueGrey,
+                      opacity: 0,
+                      size: 15,
+                      onTap: () {
+                        signInWithGoogle();
+                        navigatorKey.currentState!
+                            .popUntil((route) => route.isFirst);
+                      },
+                      borderRadius: 15,
+                      textColor: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

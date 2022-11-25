@@ -129,8 +129,9 @@ class KCarouselSlider extends StatelessWidget {
         options: CarouselOptions(
             enableInfiniteScroll: true,
             reverse: false,
-            height: 140,
+            height: height / (5.579),
             viewportFraction: 0.32),
+        // viewportFraction: 0.32),
         itemCount: list.length,
         itemBuilder: (BuildContext context, int index, int realIndex) {
           // final dataAccessor = userData[index];
@@ -149,8 +150,9 @@ class KCarouselSlider extends StatelessWidget {
                                   )));
                     },
                     child: Container(
-                      height: 140,
-                      width: 105,
+                      height: height / (5.579),
+                      width: width / (3.9),
+                      // width: width / (2.805),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(

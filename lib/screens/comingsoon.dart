@@ -39,13 +39,37 @@ class _ComingSoonState extends State<ComingSoon> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: 70,
-                            child: Text(
-                              '${boardingData.duration}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 8.0, top: 8),
+                                child: SizedBox(
+                                  width: 62,
+                                  child: Text(
+                                    '${boardingData.duration?.substring(0, 3)}',
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 24),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 8.0, top: 8),
+                                child: SizedBox(
+                                  width: 62,
+                                  child: Text(
+                                    boardingData.duration!.substring(7, 9),
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 24),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.max,

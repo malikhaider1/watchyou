@@ -2,14 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchyou/screens/SearchScreen.dart';
-
-import '../assets/authwithgoogle.dart';
+import 'package:watchyou/widgets/kAlertDialouge.dart';
 
 AppBar kAppBar(
   BuildContext context,
 ) {
   return AppBar(
-    title: FirebaseAuth.instance.currentUser!.displayName != null
+    title: FirebaseAuth.instance.currentUser!.displayName != ''
         ? Text(
             "${FirebaseAuth.instance.currentUser!.displayName}",
             style: const TextStyle(
@@ -38,29 +37,12 @@ AppBar kAppBar(
           )),
       TextButton(
           onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                      content: TextButton(
-                          onPressed: () {
-                            signOut();
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Confirm",
-                            style: TextStyle(color: Colors.white54),
-                          )),
-                      backgroundColor: Colors.black54,
-                      title: const Text(
-                        "Sign out",
-                        style: TextStyle(color: Colors.white54),
-                      ),
-                    ));
+            kAlertDialogue(context);
           },
           child: const Text(
             "Sign Out",
             style: TextStyle(color: Colors.blueGrey),
-          ))
+          )),
     ],
   );
 }

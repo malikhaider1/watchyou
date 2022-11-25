@@ -117,11 +117,10 @@ class _FirstScreenState extends State<FirstScreen> {
                             currentIndex = index;
                           },
                           initialPage: currentIndex,
-                          autoPlayCurve: Curves.easeInSine,
                           autoPlay: true,
                           enableInfiniteScroll: true,
                           viewportFraction: 0.4,
-                          height: 240,
+                          height: MediaQuery.of(context).size.height / (3.254),
                           enlargeCenterPage: true,
                         )),
                     const SizedBox(

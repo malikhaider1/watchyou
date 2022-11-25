@@ -28,34 +28,44 @@ class _KFieldWidgetState extends State<KFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 30,
+      ),
       child: TextFormField(
+        toolbarOptions: const ToolbarOptions(
+          copy: true,
+          cut: true,
+          paste: false,
+          selectAll: false,
+        ),
         maxLength: widget.maxLength,
         autovalidateMode: widget.autoValidateMode,
         validator: widget.validator,
-        style: TextStyle(color: primaryColor),
+        style: const TextStyle(color: Colors.white),
         textAlign: TextAlign.center,
-        cursorHeight: 25,
+        cursorHeight: 24,
         keyboardType: TextInputType.emailAddress,
         controller: widget.controller,
-        cursorWidth: 1,
-        cursorColor: primaryColor,
+        cursorWidth: 2,
+        cursorColor: Colors.white,
         decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 17.0, horizontal: 14.0),
           label: Text(
             widget.labelText,
-            style: TextStyle(color: primaryColor),
+            style: const TextStyle(color: Colors.white38),
           ),
           hintText: widget.hintText,
           fillColor: primaryColor,
           focusColor: primaryColor,
           hintStyle: TextStyle(color: Colors.grey.shade500),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: primaryColor, width: 1.25)),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.white, width: 1.25)),
           enabledBorder: OutlineInputBorder(
               gapPadding: 10,
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: primaryColor)),
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.white38)),
         ),
       ),
     );

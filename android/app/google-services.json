@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "390163799364-of7829b1viklmea8mq93ctd558oit932.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.WatchYou",
+            "certificate_hash": "ca713954527ea014783bc0efb2a3de01a3ed17b2"
+          }
+        },
+        {
           "client_id": "390163799364-1dq6vrqqlhcordreptkq6prg6rgt05fi.apps.googleusercontent.com",
           "client_type": 3
         }
