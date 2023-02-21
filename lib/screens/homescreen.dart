@@ -73,6 +73,7 @@ class HomeMoviesSection extends StatelessWidget {
   final String titleName;
   final String collectionName;
   final List list;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -121,6 +122,7 @@ class KCarouselSlider extends StatelessWidget {
   final String collectionName;
   final String collectionCondition;
   final List list;
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -170,19 +172,19 @@ class KCarouselSlider extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: 5,
-                    left: 7,
-                    child: Badge(
-                      toAnimate: false,
-                      shape: BadgeShape.square,
-                      badgeColor: Colors.blueGrey.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                      badgeContent: Text('⭐ ${list[index].imdbRating}',
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.8))),
-                    ),
-                  )
+                  // Positioned(
+                  //   top: 5,
+                  //   left: 7,
+                  //   child: Badge(
+                  //     toAnimate: false,
+                  //     shape: BadgeShape.square,
+                  //     badgeColor: Colors.blueGrey.withOpacity(0.1),
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     badgeContent: Text('⭐ ${list[index].imdbRating}',
+                  //         style:
+                  //             TextStyle(color: Colors.white.withOpacity(0.8))),
+                  //   ),
+                  // )
                 ]));
           }
           return const SizedBox();

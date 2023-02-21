@@ -8,8 +8,10 @@ class GridViewMoreMovies extends StatefulWidget {
     Key? key,
     required this.list,
   }) : super(key: key);
+
   // final String collectionName;
   final List list;
+
   @override
   State<GridViewMoreMovies> createState() => _GridViewMoreMoviesState();
 }
@@ -82,19 +84,19 @@ class _GridViewMoreMoviesState extends State<GridViewMoreMovies> {
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: 3,
-                      left: 14,
-                      child: Badge(
-                        toAnimate: true,
-                        shape: BadgeShape.square,
-                        badgeColor: Colors.blueGrey.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(15),
-                        badgeContent: Text('⭐ ${dataAccessor.imdbRating}',
-                            style: TextStyle(
-                                color: Colors.white.withOpacity(0.7))),
-                      ),
-                    )
+                    // Positioned(
+                    //   top: 3,
+                    //   left: 14,
+                    //   child: Badge(
+                    //     toAnimate: true,
+                    //     shape: BadgeShape.square,
+                    //     badgeColor: Colors.blueGrey.withOpacity(0.1),
+                    //     borderRadius: BorderRadius.circular(15),
+                    //     badgeContent: Text('⭐ ${dataAccessor.imdbRating}',
+                    //         style: TextStyle(
+                    //             color: Colors.white.withOpacity(0.7))),
+                    //   ),
+                    // )
                   ]));
             },
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

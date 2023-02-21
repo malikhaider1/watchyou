@@ -42,11 +42,11 @@ dependencies:
   google_sign_in: ^5.4.2
   cloud_firestore: ^4.1.0
   smooth_page_indicator: ^1.0.0+2
-  badges: ^2.0.3
+  badges: ^3.0.2
   youtube_player_flutter: ^8.1.0
   permission_handler: ^10.2.0
   flutter_vlc_player: ^7.1.5
- 
+
 
 
 
