@@ -1,7 +1,7 @@
 # watchyou
 
 Movie information app with trailer, even you can add links to play complete movie with Players, 
-Note: This App is my first project without state management and has a lot of mistakes but you can get code because of Media player issues and lot, you need this project for some ideas and models Classes with Firebase;
+Note: This App is my first project without state management, it is completely error free right now, and has a lot of mistakes according to the stucture but you can get code because of Media player issues and lot, you need this project for some ideas and models Classes with Firebase;
 
 ## Getting Started
 
